@@ -1,0 +1,12 @@
+*******************************************************************************
+ BRANCH
+*******************************************************************************
+  
+  Delete a remote branch: 
+      git push <remote> --delete <branch>
+
+  
+  Move a branch ref:
+      git branch --force <branch> <head-commit>
+
+      head-commit = commit where <branch> ref will sit on
