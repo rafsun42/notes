@@ -1,0 +1,11 @@
+*******************************************************************************
+ 17.1
+*******************************************************************************
+ 
+ - A file = Book
+ - A page = Block
+ - Index = Single-Level Ordered Index
+ - Search the index > Random access the matched pages > Scan each pages
+ - Similar to how a term is searched in a textbook using its index
+ - An index entry = value -> page number 
+
