@@ -1,0 +1,47 @@
+Terminologies:
+--------------
+
+ Buffer Page
+      A page in buffer pool. Postgres manages a buffer pool containing disk
+      pages. The buffer pool is the interface between shared memory and
+      persistent disk.
+
+ HeapTuple
+      A poiner to a tuple in a buffer page.
+
+ TupleDesc
+      Describe the structure of a HeapTuple. Because tuples in different tables
+      will have different column definition list.
+
+ TupleTableSlot
+      A wrapper around HeapTuple that is used by query processor and executor.
+      It abstracts low-level table access operation. Also, it is used in Table
+      AM API.
+
+
+
+Reading postgresql tables in C:
+-------------------------------
+
+ Postgresql tables can be read using the Table AM API in C.
+
+ First, a TableScanDesc is created. This scanner can read the table row-by-row,
+ in other words tuple-by-tuple.
+
+ Before we read a tuple, or HeapTuple, we need to initialize a TupleTableSlot
+ using the function `table_slot_create`.
+
+ Next, we need load the HeapTuple into the slot, using `table_getnextslot`
+ function.
+
+ Finally, to retrieve the HeapTuple from the slot, we need to call
+ `ExecFetchSlotHeapTuple`.
+
+ Once the HeapTuple is used, `ExecDropSingleTupleTableSlot` needs to be called
+ to drop the slot.
+
+ It is important to mention- how tightly the HeapTuple will be linked to the
+ TupleTableSlot and the lifecycle will depend on several factors like:
+ materialize option, the MemoryContext in which the HeapTuple was allocated
+ etc. These details are available in the: execTuples.c and tableam.h.
+
